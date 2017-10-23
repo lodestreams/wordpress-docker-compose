@@ -7,7 +7,7 @@ services:
       - db_etc_mysql:/etc/mysql
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=wordpress
+      - MYSQL_ROOT_PASSWORD=<CHANGE_ME>
       - MYSQL_DATABASE=wordpress
       - MYSQL_USER=wordpress
       - MYSQL_PASSWORD=<CHANGE_ME>
