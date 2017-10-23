@@ -10,6 +10,11 @@ Wordpress configured in docker-compose
   - [2.1] Change those fields filled with `<CHANGE_ME>` and save it.
   - [2.2] Change the `DOMAIN.tld` to the exact domain and remove redundancy, save it.
 - [3] Run `sudo docker-compose up -d` to get the whole server up and running.
+- [4] Create an .env file and say where you will locate the nginx files:
+  
+  ```
+  NGINX_FILES_PATH=/path/to/your/nginx/data
+  ```
 
 **Optional processes:**
 
