@@ -1,21 +1,28 @@
 #!/usr/bin/env bash
 
-readonly project_name=<PROJ_NAME>
+readonly NOW=`date +"%Y-%m-%d-%H-%M-%S"`
+readonly DEST=`pwd`/backups
 
-mkdir -p backups/tmp && \
-rm -rf backups/tmp/* && \
-\
-sudo docker-compose exec wp bash -c 'apt update && apt install -y mysql-client && mysqldump -h db -u wordpress "--password=<CHANGE_ME>" --single-transaction --events --databases wordpress > /tmp/wp.sql' && \
-sudo docker-compose exec wp bash -c 'tar -czf /var/www/html.tar.gz /var/www/html' && \
-sudo docker cp <CONTAINER_NAME>:/tmp/wp.sql ./backups/tmp/wp.sql && \
-sudo docker cp <CONTAINER_NAME>:/var/www/html.tar.gz ./backups/tmp/ && \
-\
-cd backups/tmp && \
-sudo chown -R ls:ls . && \
-: ${BACKUP_SUFFIX:=.$(date +"%Y-%m-%d-%H-%M-%S")}
-readonly tarball=$project_name-backup$BACKUP_SUFFIX.tar.gz
-tar -czf $tarball ./* && \
-mv $tarball ../ && \
-cd .. && \
-sudo rm -rf tmp && \
-cd ..
+function backup {
+  ./backup_volume.sh $1 "$DEST/$NOW/"
+}
+
+# Create archive folder
+echo rm -rf "$DEST/$NOW", waiting for 3s
+sleep 3
+rm -rf "$DEST/$NOW"
+
+echo mkdir -p "$DEST/$NOW"
+mkdir -p "$DEST/$NOW"
+
+# Backup
+backup 'demolss_lss_db_data'
+backup 'demolss_lss_db_etc_mysql'
+backup 'demolss_lss_wp_data'
+backup 'demolss_ost_db_data'
+backup 'demolss_ost_db_etc_mysql'
+backup 'demolss_ost_i18n'
+backup 'demolss_ost_plugins'
+backup 'demolss_ost_upload_files'
+
+
