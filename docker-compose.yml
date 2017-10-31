@@ -9,7 +9,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=<CHANGE_ME>
       - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wordpress
+      - MYSQL_USER=<CHANGE_ME>
       - MYSQL_PASSWORD=<CHANGE_ME>
     ports:
       - "3306"
@@ -27,14 +27,14 @@ services:
       - "443"
     environment:
       - WORDPRESS_DB_HOST=db:3306
-      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_USER=<CHANGE_ME>
       - WORDPRESS_DB_PASSWORD=<CHANGE_ME>
       - WORDPRESS_DB_NAME=wordpress
       #- XDEBUG_CONFIG=remote_host=10.0.0.3
-      - VIRTUAL_HOST=DOMAIN.tld DOMAIN2.tld
+      - VIRTUAL_HOST=DOMAIN.tld
       - VIRTUAL_PROTO=https
       - VIRTUAL_PORT=443
-      - LETSENCRYPT_HOST=DOMAIN.tld DOMAIN2.tld
+      - LETSENCRYPT_HOST=DOMAIN.tld
       - LETSENCRYPT_EMAIL=ls@lodestreams.com
   nginx:
     image: nginx
@@ -77,47 +77,6 @@ services:
     environment:
       NGINX_DOCKER_GEN_CONTAINER: "nginx-gen"
       NGINX_PROXY_CONTAINER: "nginx"
-#  dockup:
-#    image: ahfeel/dockup
-#    volumes_from:
-#      - db
-#      - wp
-#    environment:
-#      - >
-#        BEFORE_BACKUP_CMD=
-#        echo "> apt-get update && apt-get install -y mysql-client" &&
-#        apt-get update && apt-get install -y mysql-client &&
-#        echo "mysqldump -uroot -h db -pwordpress --single-transaction --events --databases wordpress > /wp.sql" &&
-#        mysqldump -uroot -h db -pwordpress --single-transaction --events --databases wordpress > /wp.sql &&
-#        echo "echo 'localhost' > wp_host" &&
-#        echo 'localhost' > wp_host
-#      - AWS_ACCESS_KEY_ID=
-#      - AWS_SECRET_ACCESS_KEY=
-#      - AWS_DEFAULT_REGION=us-west-1
-#      - BACKUP_NAME=sec
-#      - PATHS_TO_BACKUP=/var/www/html/wp-content wp_host /wp.sql /etc/mysql
-#      - S3_BUCKET_NAME=lodestreams-works-backups
-#  dockup_restore:
-#    image: ahfeel/dockup
-#    volumes_from:
-#      - db
-#      - wp
-#    environment:
-#      - >
-#        AFTER_RESTORE_CMD=
-#        echo "> apt-get update && apt-get install -y mysql-client" &&
-#        apt-get update && apt-get install -y mysql-client &&
-#        echo "previous host:" &&
-#        cat wp_host &&
-#        echo "> mysql -uroot -h db -pwordpress < wp.sql" && 
-#        mysql -uroot -h db -pwordpress < wp.sql
-#      - AWS_ACCESS_KEY_ID=
-#      - AWS_SECRET_ACCESS_KEY=
-#      - AWS_DEFAULT_REGION=us-west-1
-#      - BACKUP_NAME=sec
-#      - PATHS_TO_BACKUP=/var/www/html/wp-content wp_host /wp.sql /etc/mysql
-#      - S3_BUCKET_NAME=lodestreams-works-backups
-#      - RESTORE=true
 #  sshd:
 #    image: 'krlmlr/debian-ssh'
 #    ports:
@@ -127,8 +86,8 @@ services:
 #    volumes_from:
 #      - wp
 #    working_dir: /app
+
 volumes:
   db_data: {}
   db_etc_mysql: {}
   wp_data: {}
-

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-readonly PROJECT_NAME=ls_com
 readonly LOC="$1"
 readonly LINE="                        "
 

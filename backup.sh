@@ -16,13 +16,12 @@ echo mkdir -p "$DEST/$NOW"
 mkdir -p "$DEST/$NOW"
 
 # Backup
-backup 'demolss_lss_db_data'
-backup 'demolss_lss_db_etc_mysql'
-backup 'demolss_lss_wp_data'
-backup 'demolss_ost_db_data'
-backup 'demolss_ost_db_etc_mysql'
-backup 'demolss_ost_i18n'
-backup 'demolss_ost_plugins'
-backup 'demolss_ost_upload_files'
-
+readonly volumes=`docker-compose ps -q | xargs docker container inspect  \
+                 -f '{{ range .Mounts }}{{ .Name }} {{ end }}' \
+                 | xargs -n 1 echo`
+readonly volumes_arr=($volumes)
+for i in "${volumes_arr[@]}"
+do
+   backup "$i"
+done
 

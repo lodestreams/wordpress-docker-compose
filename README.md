@@ -5,16 +5,15 @@ Wordpress configured in docker-compose
 
 **Basic steps:**
 
-- [1] Copy and paste this `docker-compose.yml` to your app root.
-- [2] Open up `docker-compose.yml`
-  - [2.1] Change those fields filled with `<CHANGE_ME>` and save it.
-  - [2.2] Change the `DOMAIN.tld` to the exact domain and remove redundancy, save it.
-- [3] Run `sudo docker-compose up -d` to get the whole server up and running.
-- [4] Create an .env file and say where you will locate the nginx files:
-  
-  ```
-  NGINX_FILES_PATH=/path/to/your/nginx/data
-  ```
+- [1] Open up `docker-compose.yml`
+  - [1.1] Change those fields filled with `<CHANGE_ME>` and save it.
+  - [1.2] Change `DOMAIN.tld` to the exact domain and remove redundancy, save it.
+- [2] Run `sudo docker-compose up -d` to get the whole server up and running.
+
+**Notes:**
+
+- [1.1] Copy `.env.sample` to `.env`, then edit it to specify a NGINX profile location, you can also leave it blank.
+
 
 **Optional processes:**
 
@@ -35,30 +34,53 @@ local               wordpressdockercompose_db_etc_mysql
 local               wordpressdockercompose_wp_data
 ```
 
-## How to backup the website?
+## Backup and restore
 
-The command:
+### Docker setup
 
+Create the apps (empty)
+
+```bash
+# Install Docker
+curl -sSL https://get.docker.com/ | sudo sh
+
+# Install Docker Compose
+sudo su # Enter su mode
+curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+exit # Exit from su
+
+# Create app (empty)
+sudo docker-compose up
+
+# After it's initialized, stop it with Ctrl + C, ready for restoring.
+^C
 ```
+
+### Restore from volume backup files
+
+```bash
+# Restore
+sudo ./_be_careful_restore.sh <BACKUP_PATH>/20XX-XX-XX-XX-XX-XX
+
+# To print restore commands only
+sudo ./_be_careful_restore.sh <BACKUP_PATH>/20XX-XX-XX-XX-XX-XX --print
+```
+
+### Backup
+
+```bash
+# Backup
 sudo ./backup.sh
+
+# Rackspace Cloud Files
+# sudo su
+curl -L https://ec4a542dbf90c03b9f75-b342aba65414ad802720b41e8159cf45.ssl.cf5.rackcdn.com/1.2/Linux/amd64/rack > /usr/local/bin/rack && chmod +x /usr/local/bin/rack
+rack configure
+rack files object upload --container DO_NOT_DELETE_LS_BACKUP --region HKG --name <PROJ_NAME>/<TAR_FILE_NAME>-backup.`date +"%Y-%m-%d-%H-%M-%S"`.tar.gz --file <TAR_PATH>
 ```
 
-Where to find the backed up files?
+## Migration
 
-```
-cd backups
-```
+### References
 
-How to backup them into a cloud service such as Rackspace Cloud Files?
-
-```
-# Optional, only do once
-# Prepare the Rackspace API key and secret 
-# Do this as a root user
-# All regions: Northern Virginia (IAD), Chicago (ORD), Dallas (DFW), Hong Kong (HKG), Sydney (SYD)
-curl -L https://ec4a542dbf90c03b9f75-b342aba65414ad802720b41e8159cf45.ssl.cf5.rackcdn.com/1.2/Linux/amd64/rack > /usr/local/bin/rack && chmod +x /usr/local/bin/rack && rack configure
-
-# REPO_NAME usually is `DO_NOT_DELETE_LS_BACKUP`
-rack files object upload --container <REPO_NAME> --region HKG --name <PROJECT_SHORT>/<TAR_FILE> --file ./<TAR_FILE>
-```
-
+- https://codex.wordpress.org/Changing_The_Site_URL

@@ -1,1 +1,4 @@
 wp/wordpress
+.env
+nginx/*
+backups/*
