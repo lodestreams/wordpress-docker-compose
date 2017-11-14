@@ -3,6 +3,8 @@ Wordpress configured in docker-compose
 
 ## How to use this repo
 
+### Setup
+
 **Basic steps:**
 
 - [1] Open up `docker-compose.yml`
@@ -18,6 +20,34 @@ Wordpress configured in docker-compose
 **Optional processes:**
 
 - [2.3] In the app root, run the command from `nginx-gen` service in the compose file. This is useful if you want to update the `nginx.tmpl` file.
+
+### Let's Encrypted integrated
+
+**HTTPS Enabled**
+
+When you done all steps above, your website will have HTTPS enabled already.
+
+**Integrate with other apps on the same server**
+
+If you are running other apps on the same server, the nginx inside this docker-compose must be able to talk to that app. So you need to have an external network.
+
+In each `docker-compose.yml`, addd an external network:
+
+```
+networks:
+  proxy-tier:
+    external:
+      name: nginx-proxy
+```
+
+Then in your apps, hook this `proxy-tier` up like this (within an service):
+
+```
+networks:
+  - proxy-tier
+```
+
+Then setup those apps just like this docker-compose/wp, add envs such as `VIRTUAL_HOST`, `LETSENCRYPT_HOST`. Then you can recreate your app to make it work.
 
 ## How the built environment is structured?
 
