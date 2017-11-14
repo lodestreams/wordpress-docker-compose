@@ -1,4 +1,14 @@
 version: "3"
+volumes:
+  db_data: {}
+  db_etc_mysql: {}
+  wp_data: {}
+networks:
+  # docker create network proxy-tier
+  proxy-tier:
+    external:
+      name: nginx-proxy
+
 services:
   db:
     image: mysql:5.7
@@ -25,6 +35,8 @@ services:
     ports:
       - "80"
       - "443"
+    networks:
+      - proxy-tier
     environment:
       - WORDPRESS_DB_HOST=db:3306
       - WORDPRESS_DB_USER=<CHANGE_ME>
@@ -45,6 +57,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - proxy-tier
     volumes:
       - ${NGINX_FILES_PATH}/conf.d:/etc/nginx/conf.d
       - ${NGINX_FILES_PATH}/vhost.d:/etc/nginx/vhost.d
@@ -63,6 +77,8 @@ services:
       - ${NGINX_FILES_PATH}/certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+    networks:
+      - proxy-tier
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -87,7 +103,3 @@ services:
 #      - wp
 #    working_dir: /app
 
-volumes:
-  db_data: {}
-  db_etc_mysql: {}
-  wp_data: {}
