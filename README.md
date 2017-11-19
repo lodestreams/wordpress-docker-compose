@@ -31,7 +31,7 @@ When you done all steps above, your website will have HTTPS enabled already.
 
 If you are running other apps on the same server, the nginx inside this docker-compose must be able to talk to that app. So you need to have an external network.
 
-In each `docker-compose.yml`, addd an external network:
+In each `docker-compose.yml`, add an external network:
 
 ```
 networks:
