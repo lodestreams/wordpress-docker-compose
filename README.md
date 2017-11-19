@@ -109,6 +109,8 @@ rack configure
 rack files object upload --container DO_NOT_DELETE_LS_BACKUP --region HKG --name <PROJ_NAME>/<TAR_FILE_NAME>-backup.`date +"%Y-%m-%d-%H-%M-%S"`.tar.gz --file <TAR_PATH>
 ```
 
+You are free to use any cloud file storages, just backup that `<TAR_PATH>` thing.
+
 ## Migration
 
 ### References
