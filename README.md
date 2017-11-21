@@ -49,6 +49,19 @@ networks:
 
 Then setup those apps just like this docker-compose/wp, add envs such as `VIRTUAL_HOST`, `LETSENCRYPT_HOST`. Then you can recreate your app to make it work.
 
+### Configuration
+
+**Nginx Config**
+
+If you want to config nginx per-vhost, use below command:
+
+```
+# Replace <CHANGE_ME> with your exact domain name.
+# However, if you have multiple domains bound to one service, 
+#   refer to https://github.com/jwilder/nginx-proxy#per-virtual_host
+sudo docker exec -it nginx sh -c "{ echo 'server_tokens off;'; echo 'client_max_body_size 10m;'; } > /etc/nginx/vhost.d/<CHANGE_ME>"
+```
+
 ## How the built environment is structured?
 
 **The data:**
