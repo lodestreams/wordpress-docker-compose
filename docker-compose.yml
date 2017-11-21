@@ -37,6 +37,7 @@ services:
       - "443"
     networks:
       - proxy-tier
+      - default
     environment:
       - WORDPRESS_DB_HOST=db:3306
       - WORDPRESS_DB_USER=<CHANGE_ME>
