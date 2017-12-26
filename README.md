@@ -62,6 +62,12 @@ If you want to config nginx per-vhost, use below command:
 sudo docker exec -it nginx sh -c "{ echo 'server_tokens off;'; echo 'client_max_body_size 10m;'; } > /etc/nginx/vhost.d/<CHANGE_ME>"
 ```
 
+### You only want a nginx
+
+```
+sudo docker-compose up -d nginx
+```
+
 ## How the built environment is structured?
 
 **The data:**
