@@ -109,6 +109,7 @@ sudo docker-compose up
 
 ```bash
 # Restore
+# Usually, <BACKUP_PATH> can be `pwd`/backups
 sudo ./_be_careful_restore.sh <BACKUP_PATH>/20XX-XX-XX-XX-XX-XX
 
 # To print restore commands only
