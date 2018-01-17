@@ -59,6 +59,7 @@ If you want to config nginx per-vhost, use below command:
 # Replace <CHANGE_ME> with your exact domain name.
 # However, if you have multiple domains bound to one service, 
 #   refer to https://github.com/jwilder/nginx-proxy#per-virtual_host
+# If it does NOT work, append to `/etc/nginx/vhost.d/default`
 sudo docker exec -it nginx sh -c "{ echo 'server_tokens off;'; echo 'client_max_body_size 10m;'; } > /etc/nginx/vhost.d/<CHANGE_ME>"
 ```
 
