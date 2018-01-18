@@ -61,8 +61,6 @@ services:
     networks:
       - proxy-tier
     environment:
-      - GIT_EMAIL=rankun203@gmail.com
-      - GIT_NAME=Kun Ran
       - GIT_REPO=https://github.com/lodestreams/wordpress-docker-compose
       - GIT_REPO_DIR=wordpress-docker-compose
       - GIT_BRANCH=master
