@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+[ -z "$1" ] && echo 'no commit message' && exit
+
+echo "$ git add ." && git add .
+echo "$ git commit -am $1" && git commit -am "$1"
+echo "$ git push" && git push

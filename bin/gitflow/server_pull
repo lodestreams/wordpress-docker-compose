@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Pull and overwrite files
+echo '----------------------------'
+echo '------- Updating app -------'
+echo '----------------------------'
+
+# Functions --------
+ensure_env () {
+  ENV_NAME="$1"
+  ENV_VAL=${!ENV_NAME}
+  if [[ -z "${ENV_VAL}" ]]; then
+    echo "${ENV_NAME} does not exists, exiting."
+    exit
+  else
+    echo "$ENV_NAME = ${ENV_VAL}"
+  fi
+}
+# END Functions ----
+
+# Init -------------
+echo "Checking environment variables."
+ensure_env GIT_BRANCH
+ensure_env GIT_REPO_DIR
+ensure_env GIT_REPO
+ensure_env GIT_NAME
+ensure_env GIT_EMAIL
+# END Init ---------
+
+echo "$ mkdir -p /tmp/gitflow"
+mkdir -p /tmp/gitflow
+
+# Make sure the project is in place and refresh
+if [[ -d "/tmp/gitflow/${GIT_REPO_DIR}" ]]; then
+  echo "$ cd /tmp/gitflow/$GIT_REPO_DIR" && cd /tmp/gitflow/$GIT_REPO_DIR
+  echo "$ git status" && git status
+  echo "$ git reset --hard" && git reset --hard
+  echo "$ git pull origin $GIT_BRANCH" && git pull origin $GIT_BRANCH
+else
+  echo "$ git clone $GIT_REPO" && git clone $GIT_REPO
+  echo "$ cd $GIT_REPO_DIR" && cd $GIT_REPO_DIR
+fi
+
+# Update files
+mkdir -p ./src/wp_data/wp-content # Supress warning
+echo "$ cp -vrf ./src/wp_data/wp-content /var/www/html/"
+cp -vrf ./src/wp_data/wp-content /var/www/html/
+
+echo "$ chown -R www-data:www-data /var/www/html/wp-content"
+chown -R www-data:www-data /var/www/html/wp-content

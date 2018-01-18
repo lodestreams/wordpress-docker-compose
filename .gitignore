@@ -1,4 +1,6 @@
-wp/wordpress
 .env
 nginx/*
 backups/*
+
+# Exclude uploads
+src/wp_data/wp-content/uploads/
