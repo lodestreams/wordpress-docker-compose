@@ -1,3 +1,0 @@
-# Deprecated
-
-FROM debian:jessie
