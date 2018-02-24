@@ -18,17 +18,19 @@ function confirm_or_quit {
 }
 
 function delete_old_backups {
-  ls -At | tail -n +$KEEP
-  echo 'is going to be deleted,' && confirm_or_quit
-  ls -At | tail -n +$KEEP | xargs rm --
-}
+  cd $DEST
+  echo "Will keep only $KEEP backups"
+  old_backups=`ls -At | tail -n +$KEEP | wc -l`;
+  if (( old_backups == 0 )); then
+    cd - && return
+  fi
 
-# Delete old backups
-cd $DEST
-old_backups=`ls -At | tail -n +$KEEP | wc -l`;
-if (( old_backups > 0 )); then
-  delete_old_backups
-fi
+  ls -At | tail -n +$KEEP
+  echo 'is going to be moved to /tmp,' && confirm_or_quit
+  ls -At | tail -n +$KEEP | xargs -i mv {} /tmp
+  cd - && return
+}
+delete_old_backups
 
 # Create archive folder
 echo rm -rf "$DEST/$NOW", waiting for 3s
