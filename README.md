@@ -14,7 +14,7 @@ Wordpress configured in docker-compose
 
 **Notes:**
 
-- [1.1] Copy `.env.sample` to `.env`, then edit it to specify a NGINX profile location, you can also leave it blank.
+- [1.1] Copy `.env.sample` to `.env`, then edit it to specify an NGINX profile location, you can also leave it blank.
 
 
 **Optional processes:**
@@ -67,7 +67,7 @@ sudo docker exec -it nginx sh -c "{ echo 'server_tokens off;'; echo 'client_max_
 
 - Increase upload file size: `php_value upload_max_filesize 30M`
 
-### You only want a nginx
+### You only want an nginx
 
 ```
 sudo docker-compose up -d nginx
