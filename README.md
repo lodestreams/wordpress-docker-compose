@@ -61,6 +61,11 @@ If you want to config nginx per-vhost, use below command:
 #   refer to https://github.com/jwilder/nginx-proxy#per-virtual_host
 # If it does NOT work, append to `/etc/nginx/vhost.d/default`
 sudo docker exec -it nginx sh -c "{ echo 'server_tokens off;'; echo 'client_max_body_size 10m;'; } > /etc/nginx/vhost.d/<CHANGE_ME>"
+
+**Wordpress Config**
+
+- Increase upload file size: `php_value upload_max_filesize 30M`
+
 ```
 
 ### You only want a nginx
