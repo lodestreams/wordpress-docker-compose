@@ -3,5 +3,16 @@
 nginx/*
 backups/*
 
-# Exclude uploads
-src/wp_data/wp-content/uploads/
+# NPM modules
+src/wp_data/wp-content/themes/ls-child/node_modules
+
+# WP source code
+src/wp_dist
+
+# Plugins, themes and related
+src/wp_data/wp-content/plugins/
+
+# Other files under wp-content except ls-child
+!src/wp_data/wp-content/
+src/wp_data/wp-content/**
+!src/wp_data/wp-content/themes/ls-child
