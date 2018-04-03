@@ -120,6 +120,6 @@ services:
 #      - "8033:22"
 #    environment:
 #      - SSH_KEY=
-#    volumes_from:
-#      - wp
-#    working_dir: /app
+#    volumes:
+#      - wp_data:/var/www/html
+#    working_dir: /var/www/html
