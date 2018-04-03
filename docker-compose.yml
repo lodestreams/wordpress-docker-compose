@@ -47,8 +47,9 @@ services:
       - VIRTUAL_HOST=DOMAIN.tld
       - VIRTUAL_PROTO=http
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=DOMAIN.tld
-      - LETSENCRYPT_EMAIL=ls@lodestreams.com
+      - HTTPS_METHOD=nohttps
+      #- LETSENCRYPT_HOST=DOMAIN.tld
+      #- LETSENCRYPT_EMAIL=ls@lodestreams.com
   wp-gitflow:
     depends_on:
       - wp
