@@ -6,9 +6,6 @@ backups/*
 # NPM modules
 src/wp_data/wp-content/themes/ls-child/node_modules
 
-# WP source code
-src/wp_dist
-
 # Plugins, themes and related
 src/wp_data/wp-content/plugins/
 
