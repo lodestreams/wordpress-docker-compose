@@ -12,4 +12,4 @@ src/wp_data/wp-content/plugins/
 # Other files under wp-content except ls-child
 !src/wp_data/wp-content/
 src/wp_data/wp-content/**
-!src/wp_data/wp-content/themes/ls-child
+!src/wp_data/wp-content/themes/ls-child/
