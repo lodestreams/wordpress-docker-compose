@@ -24,11 +24,11 @@ fi
 
 function restore {
   if [ "$PRINT_ONLY" == "1" ]; then
-    echo "docker run -it --rm -v $1:/volume -v $LOC:/backup alpine sh -c \"rm -rf /volume/* ; tar -C /volume/ -xjf '/backup/$2'\""
+    echo "docker run -it --rm -v $1:/volume -v $LOC:/backup alpine sh -c \"rm -rf /volume/* ; tar -C /volume/ -xf '/backup/$2'\""
   else
     printf "RESTORE %s %s from $LOC/$2\n" $1 "${LINE:${#1}}"
     confirm_or_quit
-    docker run -it --rm -v $1:/volume -v $LOC:/backup alpine sh -c "rm -rf /volume/* ; tar -C /volume/ -xjf '/backup/$2'"
+    docker run -it --rm -v $1:/volume -v $LOC:/backup alpine sh -c "rm -rf /volume/* ; tar -C /volume/ -xf '/backup/$2'"
   fi
 }
 
