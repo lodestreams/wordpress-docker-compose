@@ -2,6 +2,7 @@
 
 readonly NOW=`date +"%Y-%m-%d-%H-%M-%S"`
 readonly DEST=`pwd`/backups
+readonly KEEP=${KEEP:=5}
 
 function backup {
   ./backup_volume.sh $1 "$DEST/$NOW/"
