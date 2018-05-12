@@ -1,4 +1,4 @@
-version: "3"
+version: "3.6"
 volumes:
   db_data: {}
   db_etc_mysql: {}
@@ -34,7 +34,6 @@ services:
       - wp_data:/var/www/html
     ports:
       - "80"
-      - "443"
     networks:
       - proxy-tier
       - default
@@ -43,10 +42,10 @@ services:
       - WORDPRESS_DB_USER=<CHANGE_ME>
       - WORDPRESS_DB_PASSWORD=<CHANGE_ME>
       - WORDPRESS_DB_NAME=wordpress
-      #- XDEBUG_CONFIG=remote_host=10.0.0.3
       - VIRTUAL_HOST=DOMAIN.tld
       - VIRTUAL_PROTO=http
       - VIRTUAL_PORT=80
+      # nohttps is a non-https setup, if you need https, comment this out and uncomment LETSENCRYPT fields
       - HTTPS_METHOD=nohttps
       #- LETSENCRYPT_HOST=DOMAIN.tld
       #- LETSENCRYPT_EMAIL=ls@lodestreams.com
