@@ -67,7 +67,7 @@ sudo docker exec -it nginx sh -c "{ echo 'server_tokens off;'; echo 'client_max_
 
 - Increase upload file size: `php_value upload_max_filesize 30M`
 
-### You only want an nginx
+### You only want a nginx
 
 ```
 sudo docker-compose up -d nginx
