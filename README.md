@@ -1,6 +1,10 @@
 # wordpress-docker-compose
 Wordpress configured in docker-compose
 
+# Todo
+
+- [ ] Add a ENV `BACKUP_CMD=mysqldump -uxxx -pjjj --database xxxx > xxx.sql && tar -czf /tmp/backup.tar.gz xxx` which always generates a `backup.tar.gz` under `/tmp`.
+
 ## How to use this repo
 
 ### Setup
@@ -67,7 +71,7 @@ sudo docker exec -it nginx sh -c "{ echo 'server_tokens off;'; echo 'client_max_
 
 - Increase upload file size: `php_value upload_max_filesize 30M`
 
-### You only want a nginx
+### You only want an nginx
 
 ```
 sudo docker-compose up -d nginx
