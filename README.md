@@ -3,7 +3,8 @@ Wordpress configured in docker-compose
 
 # Todo
 
-- [ ] Add a ENV `BACKUP_CMD=mysqldump -uxxx -pjjj --database xxxx > xxx.sql && tar -czf /tmp/backup.tar.gz xxx` which always generates a `backup.tar.gz` under `/tmp`.
+- [ ] Add an ENV `BACKUP_CMD=mysqldump -uxxx -pjjj --database xxxx > xxx.sql && tar -czf /tmp/backup.tar.gz xxx` which always generates a `backup.tar.gz` under `/tmp`.
+- [ ] Add an ENV `RESTORE_CMD=xxx`.
 
 ## How to use this repo
 
